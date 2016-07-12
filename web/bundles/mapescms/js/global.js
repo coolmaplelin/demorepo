@@ -1,0 +1,1 @@
+$(document).ready(function() {    $('.date').datepicker({ dateFormat: 'dd-mm-yy' });});function doPop(url){   var newwindow=window.open(url,'previewpain','height=500,width=800,scrollbars=yes,resizable=yes');   if (window.focus)    	{newwindow.focus()}}

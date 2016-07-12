@@ -12,5 +12,10 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-/vendor/
-/web/bundles/
+# Ignore everything in the "vendor" directory, except the "sfThumbnailPlugin" directory
+/vendor/*
+!/vendor/sfThumbnailPlugin
+# Ignore everything in the "bundles" directory, except the "mapescms" directory
+/web/bundles/*
+!/web/bundles/mapescms
+

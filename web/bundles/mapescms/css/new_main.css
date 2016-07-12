@@ -1,0 +1,12 @@
+/* 
+    Document   : new_main
+    Created on : 11/08/2013, 5:19:21 PM
+    Author     : Maple
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.vanity-heading{line-height: 18px !important;color: #FFFFFF !important; margin: 0px !important; font-size: 14px	 !important}
+
+.vanity-description{margin-bottom: 0px; color: #FFFFFF}
+
+.vanity-container{ border: 1px solid #414141; padding: 5px; margin-bottom: 20px; background: url("../images/backgrounds/front-bg.png") repeat scroll 0 0 #414141}

@@ -1,0 +1,109 @@
+/* 
+    Document   : new_main
+    Created on : 11/08/2013, 5:19:21 PM
+    Author     : Maple
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.clearAll, .clearBoth{display: block; clear: both}
+
+.hideme{display:none}
+
+.vanity-heading{line-height: 18px !important;color: #FFFFFF !important; margin: 0px !important; font-size: 14px	 !important}
+
+.vanity-description{margin-bottom: 0px; color: #FFFFFF}
+
+.vanity-container{ border: 1px solid #414141; padding: 5px; margin-bottom: 20px; background: url("../images/backgrounds/front-bg.png") repeat scroll 0 0 #414141}
+
+.ui-datepicker-inline{display:none !important;}
+
+.number{text-align: right}
+
+
+.sonata-ba-form.myadmin .red.button {
+    background-color: #e91c21;
+}
+
+.sonata-ba-form.myadmin .round.button {
+    border-radius: 1000px;
+}
+
+.sonata-ba-form.myadmin .big.button {
+    padding: 9px 34px 11px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.ui-dialog-content h1{
+    font-size: 24px;
+}
+
+.ui-dialog-content table{
+    width:100%;
+}
+
+.ui-dialog-content table td{
+    padding: 3px;
+    font-size: 0.9em;
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+.ui-dialog-content table td:nth-child(1){
+    min-width: 120px;
+}
+
+.ui-dialog-content input[type=text], .ui-dialog-content textarea, .ui-dialog-content select{
+    width: 300px;
+    font-size: 0.9em;
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+.ui-dialog-content img{
+    max-width: 400px;
+}
+
+.nav-scrollable {
+    background: url("../images/backgrounds/app-bg.png") repeat scroll 0 0 #ffffff;
+    border: 1px solid #cccccc;
+    margin-bottom: 20px;
+    min-height: 220px;
+    padding: 5px;
+}
+.nav-add-another{
+	background-color: #FFFFFF;
+	border: 2px solid #CCC;
+	padding: 5px;
+	margin: 3px;
+	width: 150px;
+	float: left;
+}
+
+#top-nav-container, #form-fields-container { list-style-type: none; margin: 0; padding: 0; cursor: pointer}
+#top-nav-container li, #top-nav-container li ul { list-style-type: none; }
+.top-nav-inner{padding:0}
+.nav-scrollable .heading {font-weight: bold;}
+.top-nav-item {float: left; border: 2px solid #ccc;list-style-type: none;margin: 3px;min-height: 190px;min-width: 200px;padding: 5px;}
+.top-nav-item .controls{float: right;}
+.top-nav-show-1{background-color: #FFFFFF;}
+.top-nav-show-0{background-color: #CCCCCC;border: 2px solid #999;}
+
+.add-icon{background: url("../images/icons/add.png") no-repeat; width: 16px;height: 16px;padding-left: 16px;}
+.edit-icon{background: url("../images/icons/page_edit.png") no-repeat; width: 16px;height: 16px;padding-left: 16px;}
+.delete-icon{background: url("../images/icons/cancel.png") no-repeat; width: 16px;height: 16px;padding-left: 16px;}
+
+.error_list li{color : #a94442}
+.success_list li{color:#3c763d}
+
+.imgContainer {
+    max-height: 250px;
+    max-width: 700px;
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+.imgContainer img {
+    max-height: 200px;
+    max-width: 300px;
+}
+
