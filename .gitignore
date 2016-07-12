@@ -20,7 +20,7 @@
 !/web/bundles/mapescms
 /web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/cache/*
 /web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/session_keys.txt
+/uploads/*
 !/uploads/galleries
-/uploads/galleries/*
 
 
