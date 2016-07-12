@@ -1,7 +1,7 @@
 Symfony Demo Application
 ========================
 
-a demo Symfony application
+A demo Symfony application
 
 Requirements
 ------------

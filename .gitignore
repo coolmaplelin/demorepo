@@ -1,4 +1,4 @@
-/app/config/parameters.yml
+#/app/config/parameters.yml
 /build/
 /phpunit.xml
 /var/*
@@ -18,4 +18,9 @@
 # Ignore everything in the "bundles" directory, except the "mapescms" directory
 /web/bundles/*
 !/web/bundles/mapescms
+/web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/cache/*
+/web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/session_keys.txt
+!/uploads/galleries
+/uploads/galleries/*
+
 

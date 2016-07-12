@@ -29,6 +29,8 @@ class MemberAdmin extends Admin
     
     protected function configureFormFields(FormMapper $formMapper)
     {
+		$session = $this->getRequest()->getSession();
+		
         /*$formMapper
         ->with('Name & Email')
             ->add('first_name')
@@ -55,7 +57,7 @@ class MemberAdmin extends Admin
                 ->add('email', null, array('required' => true))
                 ->add('phone')
                 ->add('photo' ,null, array(
-                    'attr' => array('class' => 'imageme')
+                    'attr' => array('class' => 'imageme', 'session_key' => $session->get('session_key'))
                     ))
             ->end()
             ->with('Access', array('class' => 'col-md-6'))
