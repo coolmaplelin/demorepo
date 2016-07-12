@@ -18,6 +18,8 @@
 # Ignore everything in the "bundles" directory, except the "mapescms" directory
 /web/bundles/*
 !/web/bundles/mapescms
+# Ignore everything in the "../pdw_file_browser/cache" directory
+!/web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/cache
 /web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/cache/*
 /web/bundles/mapescms/js/ckeditor/plugins/pdw/pdw_file_browser/session_keys.txt
 /uploads/*
