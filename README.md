@@ -22,4 +22,6 @@ $ php composer.phar update
 Usage
 -----
 Use the built-in web server:
+```bash
 $ php bin/console server:run
+```
