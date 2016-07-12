@@ -13,8 +13,10 @@ Requirements
 Installation
 ------------
 Download this repository to your local directory (say 'demo') and run the following commands:
+```bash
 $ cd demo 
 $ php composer.phar update
+```
 
 
 Usage
