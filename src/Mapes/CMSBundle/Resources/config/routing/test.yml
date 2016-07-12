@@ -1,0 +1,3 @@
+test_email:
+    path:  /email
+    defaults: { _controller: "MapesCMSBundle:Test:email" }

@@ -1,0 +1,10 @@
+about-us/dave-page,dave-page
+about-us/policy,index/policy
+bin,about-us/bin
+eric,about-us/bin/eric
+about-us/eric,about-us/bin/eric
+index/maple-page,about-us/maple-page
+about-us/bin,about-us/maple-page/bin
+index/policy,home-page/policy
+home-page/policy,policy
+about-us/maple-page,maple-page

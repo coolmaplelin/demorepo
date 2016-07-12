@@ -1,0 +1,50 @@
+Mapes\CMSBundle\Entity\PageImage:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\PageImageRepository
+  table: page_image
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    page_id:
+      type: integer
+      nullable: true
+    order_num:
+      type: integer
+      nullable: true
+    file_path:
+      type: string
+      length: 255
+      nullable: true
+    heading:
+      type: string
+      length: 255
+      nullable: true
+    description:
+      type: text
+      nullable: true
+    link:
+      type: string
+      length: 255
+      nullable: true
+    resizes:
+      type: text
+      nullable: true
+    button_text:
+      type: string
+      length: 255
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+  manyToOne:
+    page:
+      targetEntity: Page
+      inversedBy: images
+      joinColumn:
+        name: page_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: []
+    preUpdate: []

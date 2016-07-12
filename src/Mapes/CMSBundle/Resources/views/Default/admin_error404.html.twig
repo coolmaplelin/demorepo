@@ -1,0 +1,26 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - 404 Error"|trans }}
+{% endblock%}
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li class="active">Page not found</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    <div class="sonata-ba-form myadmin">
+            
+            <div class="row">
+                <div class="col-md-12">
+					<h1>404 - Oops, page not found</h1>
+
+					<p>We could not find the page you were looking for.<p>
+					
+                </div>
+           </div>
+    </div>
+
+{% endblock sonata_admin_content %}

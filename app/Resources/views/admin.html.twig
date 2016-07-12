@@ -1,0 +1,103 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Essential -->
+    <link rel="stylesheet" href="{{ asset('bundles/mapescms/css/page-parent.css')}}">
+    <link rel="stylesheet" href="{{ asset('bundles/mapescms/css/myadmin.css')}}">
+    <link rel="stylesheet" href="{{ asset('bundles/mapescms/js/iphone-style-checkboxes/iphone-style-checkboxes.css')}}">
+        
+    <link rel="stylesheet" href="{{ asset('bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css')}}"/>
+    
+    <!-- Fileupload -->
+    <link rel="stylesheet" href="{{ asset('bundles/mapescms/js/blueimp/fileupload/css/jquery.fileupload.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/mapescms/js/blueimp/fileupload/css/jquery.fileupload-ui.css')}}"/>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+        
+    <!-- Essential -->
+    <script src="{{ asset('bundles/mapescms/js/ckeditor/ck-in-modal-patch.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/page-parent.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/iphone-style-checkboxes/iphone-style-checkboxes.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/global.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/admin.js') }}"></script>
+
+    <!-- Fileupload -->
+    <script src="{{ asset('bundles/mapescms/js/myfileupload.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/vendor/jquery.ui.widget.js') }}"></script>
+    <!-- The Templates plugin is included to render the upload/download listings -->
+    <!--<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>-->
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/tmpl.js') }}"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload-process.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload-image.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload-video.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload-validate.js') }}"></script>
+    <script src="{{ asset('bundles/mapescms/js/blueimp/fileupload/js/jquery.fileupload-ui.js') }}"></script>
+    
+{% endblock %}
+
+    
+{% block side_bar_nav %}
+    {% if app.user and is_granted('ROLE_SONATA_ADMIN') %}
+        <ul class="sidebar-menu">
+            {% for group in admin_pool.dashboardgroups %}
+                {% set display = (group.roles is empty or is_granted('ROLE_SUPER_ADMIN') ) %}
+                {% for role in group.roles if not display %}
+                    {% set display = is_granted(role) %}
+                {% endfor %}
+
+                {# Do not display the group label if no item in group is available #}
+                {% set item_count = 0 %}
+                {% if display %}
+                    {% for admin in group.items if item_count == 0 %}
+                        {% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                            {% set item_count = item_count+1 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if display and (item_count > 0) %}
+                    {% set active = false %}
+                    {% for admin in group.items %}
+                        {% if admin.hasroute('list') and admin.isGranted('LIST') and app.request.get('_sonata_admin') == admin.code %}
+                            {% set active = true %}
+                        {% endif %}
+                    {% endfor %}
+                    <li class="treeview{% if active %} active{% endif %}">
+                        <a href="#">
+                            {% if group.icon|default() %}{{ group.icon|raw }}{% endif %}
+                            <span>{{ group.label|trans({}, group.label_catalogue) }}</span>
+                            <i class="fa pull-right fa-angle-left"></i>
+                        </a>
+                        <ul class="treeview-menu{% if active %} active{% endif %}">
+                            {% for admin in group.items %}
+                                {% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                                    <li{% if app.request.get('_sonata_admin') == admin.code %} class="active"{% endif %}><a href="{{ admin.generateUrl('list')}}"><i class="fa fa-angle-double-right"></i> {{ admin.label|trans({}, admin.translationdomain) }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            
+            {# Customized Sonata Admin Side Menu #}
+            {% include '::admin_sidemenu.html.twig'  %}
+                    
+        </ul>
+    {% endif %}
+{% endblock side_bar_nav %}    
+
+{% block side_bar_after_nav %}
+
+{% endblock %}

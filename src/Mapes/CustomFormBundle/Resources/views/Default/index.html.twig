@@ -1,0 +1,92 @@
+{% extends 'MapesCMSBundle::layout.html.twig' %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+
+            $('#custom-form').submit(function() {
+                    $(this).attr('action', '{{ path('custom_form_default', { 'slug': custom_form.slug}) }}');
+                    //$(this).attr('method', 'POST');
+            });
+
+            function checkFormValid()
+            {
+                    var passable = true;
+                    $("input[isMan|=true],select[isMan|=true],textarea[isMan|=true]").each(function(){
+                            if($(this).val() == "")
+                            {
+                                    alert("Please enter a value for " + $(this).attr("origName"));
+                                    passable = false;
+                                    return false;
+                            }
+                    });
+                    return passable;
+            }
+    </script>
+        
+{% endblock %}
+    
+    
+{% block content %}
+
+	<h1>{{ custom_form.title }}</h1>
+
+	{{ custom_form.instructions | raw }}
+        
+        <form id="custom-form" onSubmit="return checkFormValid();" style="margin-top: 20px;" method="post">
+            
+        
+            {% for field in form_fields %}
+                <div class="fieldset form-group">
+                        <label>{{field.title}}</label>
+                        
+                        <div class='field-input'>
+                            
+                            {% if field.type == 'text' %}
+                            
+                                <input name='customform[{{field.slug}}]' origName='{{field.title}}' type='text' {{field.is_mandatory}} class='form-control' />
+                                
+                            {% elseif field.type == 'textbox' %}
+                                
+                                <textarea name='customform[{{field.slug}}]' origName='{{field.title}}' {{field.is_mandatory}} class='form-control' style='height: 120px'></textarea>
+                                
+                            {% elseif field.type == 'select' %}
+                                
+                                <select name='customform[{{field.slug}}]' origName='{{field.title}}' {{field.is_mandatory}} class='form-control'>
+                                    {% for option,option_value in field.options %}
+                                        <option value='{{option_value}}'>{{option}}</option>
+                                    {% endfor %}    
+                                </select>
+                                
+                            {% elseif field.type == 'radio' %}
+                                
+                                {% for option,option_value in field.options %}
+                                    <input name='customform[{{field.slug}}]' origName='{{field.title}}' type='radio' value='{{option_value}}' /> {{option}} <br />
+                                {% endfor %}
+                                        
+                            {% elseif field.type == 'checkbox' %}
+                                    
+                                {% for option,option_value in field.options %}
+                                    <input name='customform[{{field.slug}}][]' origName='{{field.title}}' type='checkbox' value='{{option_value}}' /> {{option}} <br />
+                                {% endfor %}
+                                
+                            {% endif %}                            
+                        
+                        </div>
+                </div>
+            {% endfor %}
+            
+            <input type="submit" value="Submit" class="button"/>
+            
+        </form>
+
+{% endblock %}
+        
+
+        
+
+        
+        
+ 

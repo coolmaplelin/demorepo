@@ -1,0 +1,33 @@
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
+
+mapes_shop:
+    resource: "@MapesShopBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+admin:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+    
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin   
+    
+mapes_user:
+    resource: "@MapesUserBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+mapes_cms:
+    resource: "@MapesCMSBundle/Resources/config/routing.yml"
+    prefix:   /
+
+mapes_custom_form:
+    resource: "@MapesCustomFormBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+oneup_uploader:
+    resource: .
+    type: uploader	

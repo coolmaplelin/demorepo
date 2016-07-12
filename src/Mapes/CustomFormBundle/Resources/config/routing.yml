@@ -1,0 +1,11 @@
+custom_form_thankyoupage:
+    path:  /form/{slug}/thankyou
+    defaults: { _controller: MapesCustomFormBundle:Default:thankyou}
+    requirements:
+       slug: ".+"              
+       
+custom_form_default:
+    path:  /form/{slug}
+    defaults: { _controller: MapesCustomFormBundle:Default:index}
+    requirements:
+       slug: ".+"  

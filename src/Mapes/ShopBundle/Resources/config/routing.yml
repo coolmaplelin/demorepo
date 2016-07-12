@@ -1,0 +1,10 @@
+shop_payment_option:
+    path:  /payment/option
+    defaults: { _controller: MapesShopBundle:Payment:option }
+shop_pay_eway:
+    path:  /payment/eway
+    defaults: { _controller: MapesShopBundle:Payment:eway }	
+
+shop_pay_eway_process:
+    path:  /payment/eway_process
+    defaults: { _controller: MapesShopBundle:Payment:eway_process }	

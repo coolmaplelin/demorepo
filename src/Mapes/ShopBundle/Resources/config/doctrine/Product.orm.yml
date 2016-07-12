@@ -1,0 +1,27 @@
+Mapes\ShopBundle\Entity\Product:
+  type: entity
+  repositoryClass: Mapes\ShopBundle\Repository\ProductRepository
+  table: product
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 255
+    type:
+      type: string
+      length: 50
+    price:
+      type: float
+      #precision: 10
+      #scale: 2
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+  oneToMany:
+    orderitems:
+      targetEntity: OrderItem
+      mappedBy: product

@@ -1,0 +1,57 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    {% if object.id %}
+        <script type="text/javascript">
+            $(function(){
+                {% set fileEntity = 'PageImage' %}
+                $('#fileupload-' + '{{ fileEntity }}').fileupload({
+                    url: '{{ oneup_uploader_endpoint('galleries') }}',
+                    formData: {fileEntity:'{{ fileEntity }}', refid:'{{ object.id}}'},
+                    uploadTemplateId: '{{ fileEntity }}-template-upload',
+                    downloadTemplateId: '{{ fileEntity }}-template-download',
+                });
+
+                $.ajax({
+                   url: '{{ path('ajax_get_uploadedfile_list') }}',
+                   data: { fileEntity: '{{ fileEntity }}', refid: {{object.id}} },
+                   success: function(data) {
+
+                       var result = tmpl("{{ fileEntity }}-template-currentlist", data);
+                       $("#fileupload-{{ fileEntity }} .files").append(result);
+                   }
+                });
+                
+                $("#fileupload-{{ fileEntity }} .files").sortable({
+                    items: "tr:not(.template-upload)",
+                    placeholder: "ui-state-highlight",
+                    stop: function(event, ui){
+                        reorderImage('{{ path('ajax_reorder_pageimage') }}', '{{ fileEntity }}', '{{object.id}}');
+                    }
+                });
+                
+            });
+            
+        </script>    
+    {% endif %}
+        
+{% endblock %}
+    
+    
+{% block form %}
+
+    {{ parent() }}
+
+    <div id="fileupload-container">
+          {% include 'MapesCMSBundle::fileupload.html.twig' with {'fileType' : 'Image', 'fileEntity':'PageImage','object': object} %}
+    </div>
+
+    <div id="parentMenus" style="display:none">
+        {% include 'MapesCMSBundle:Cache:parentpageselector.html.twig'  %}
+    </div>
+
+{% endblock %}
+
+

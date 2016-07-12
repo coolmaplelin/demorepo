@@ -1,0 +1,103 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - Preferences"|trans }}
+{% endblock%}
+
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li class="active">System Preferences</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    {% block notice %}
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+    {% endblock notice %}
+
+    <div class="sonata-ba-form myadmin">
+        <form action="{{path('admin_system_preference')}}" method="post">
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Global header tracking code
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">Tracking code that gets placed before the <i>head</i> tag </label>
+                                <div class=" sonata-ba-field">
+                                    <textarea name="ga-code-head" style="height:150px;width:95%">{{preference_array['ga-code-head']|raw}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Global footer tracking code
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">Tracking code that gets placed right before the closing <i>body</i> tag  </label>
+                                <div class=" sonata-ba-field">
+                                    <textarea name="ga-code-footer" style="height:150px;width:95%">{{preference_array['ga-code-footer']|raw}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Administration Email
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">This email will receive all enquiries and data update alerts from user, e.g: john.smith@example.com.au.</label>
+                                <div class=" sonata-ba-field">
+                                    <textarea name="admin_email" style="height:130px;width:95%">{{preference_array['admin_email']|raw}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                System No Reply Email
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">This email address will be the sender of all emails that sent out to the user.  </label>
+                                <div class=" sonata-ba-field">
+                                    <input type="text" name="system-no-reply-email" style="width:95%" value="{{preference_array['system-no-reply-email']|raw}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="well well-small form-actions">
+                <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> Save</button>
+            </div>
+        </form>
+                
+    </div>
+
+{% endblock sonata_admin_content %}

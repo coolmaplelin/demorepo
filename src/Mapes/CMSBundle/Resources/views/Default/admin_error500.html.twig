@@ -1,0 +1,32 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - 500 Error"|trans }}
+{% endblock%}
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li class="active">500 Error</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    <div class="sonata-ba-form myadmin">
+            
+            <div class="row">
+                <div class="col-md-12">
+					<h1>500 Error</h1>
+
+					<p>Sorry, we've encountered a system internal error.<p>
+
+					
+					{% if show_message %}
+						
+						<p>{{exception.message}} </p>
+					{% endif %}
+					
+                </div>
+           </div>
+    </div>
+
+{% endblock sonata_admin_content %}

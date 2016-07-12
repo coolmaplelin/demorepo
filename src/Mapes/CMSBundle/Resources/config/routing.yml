@@ -1,0 +1,31 @@
+mapes_cms_home:
+    path:  /
+    defaults: { _controller: MapesCMSBundle:Page:index, slug: "index" }
+    
+mapes_cms_ajax:
+    resource: "@MapesCMSBundle/Resources/config/routing/ajax.yml"
+    prefix: /ajax
+
+mapes_cms_admin:
+    resource: "@MapesCMSBundle/Resources/config/routing/admin.yml"
+    prefix: /admin
+
+mapes_cms_test:
+    resource: "@MapesCMSBundle/Resources/config/routing/test.yml"
+    prefix: /test
+
+mapes_cms_page:
+    path:  /page/{slug}
+    defaults: { _controller: MapesCMSBundle:Page:index}
+    requirements:
+       slug: ".+"
+
+mapes_pdf_page:
+    path:  /pdf/page
+    defaults: { _controller: MapesCMSBundle:PDF:index}
+       
+mapes_pdf_print:
+    path:  /pdf/page/print
+    defaults: { _controller: MapesCMSBundle:PDF:print}
+
+

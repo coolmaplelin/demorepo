@@ -1,0 +1,109 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - Redirect File Upload"|trans }}
+{% endblock%}
+
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li><a href="' ~ admin.generateUrl('list') ~ '">Redirect List</a></li><li class="active">Redirect File Upload</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    {% block notice %}
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+    {% endblock notice %}
+
+    <div class="sonata-ba-form myadmin">
+        <form id="uploadForm" action="{{ admin.generateUrl('upload')}}" method="post" enctype="multipart/form-data">
+		
+			<input type="hidden" name="validate" value="1" />   
+			<input type="hidden" name="submitted" value="0" />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Redirect File Uploader
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+								<div class="">
+									<ul>
+										<li>The file must be in CSV format, separated by comma.</li>
+										<li>The file must contain 2 columns and columns must be in the following order : <br>
+											original url <br>
+											destination url<br>
+										</li>
+									</ul>
+								</div>
+                                <div class=" sonata-ba-field">
+                                    <input type="file" name="redirect_csv" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="well well-small form-actions">
+						<button class="btn btn-success" type="button" onClick="$('input[name=validate]').val('1'); $('input[name=submitted]').val('0'); $('#uploadForm').submit(); return false;"><i class="fa fa-save"></i> Load & Validate</button>
+						{% if isValidated and app.session.get('redirect_csv_data')|length > 0 %}
+							<button class="btn btn-success" type="button" onClick="$('input[name=validate]').val('0'); $('input[name=submitted]').val('1'); $('#uploadForm').submit(); return false;"><i class="fa fa-save"></i> Action</button>
+						{% endif %}
+					</div>
+
+                </div>
+            </div>
+        </form>
+                
+    </div>
+	
+	{% if app.session.get('redirect_csv_data')|length > 0 %}
+		<div class="row">
+			<div class="sonata-ba-list col-md-12">
+				<div class="box box-primary">
+					<div class="box-body table-responsive no-padding">
+						
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr><th>Row Number</th><th>Original URL</th><th>Destination URL</th><th>Status</th>
+								</thead>
+								<tbody>
+									{% for row_number, data in app.session.get('redirect_csv_data') %}
+										<tr>
+											<td>#{{row_number+1}}</td>
+											
+											{% for i in 0..1 %}
+												<td>{{data[i]}}</td>
+											{% endfor %}
+											
+											<td>
+												{% if errors[row_number] is defined and errors[row_number]|length > 0 %}
+													<ul class="error_list">
+														{% for error in errors[row_number] %}
+															<li>{{error}}</li>
+														{% endfor %}
+													</ul>
+												{% elseif msgs[row_number] is defined and msgs[row_number]|length > 0 %}
+													<ul class="success_list">
+														{% for msg in msgs[row_number] %}
+															<li>{{msg}}</li>
+														{% endfor %}
+													</ul>
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock sonata_admin_content %}

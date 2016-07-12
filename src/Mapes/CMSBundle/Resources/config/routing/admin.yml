@@ -1,0 +1,19 @@
+admin_system_preference:
+  path:  /setup/preference
+  defaults: { _controller: "MapesCMSBundle:MyAdmin:preference" }
+
+admin_system_cache:
+  path:  /setup/cache
+  defaults: { _controller: "MapesCMSBundle:MyAdmin:cache" }
+
+admin_config_navigation:
+  path:  /setup/navigation
+  defaults: { _controller: "MapesCMSBundle:MyAdmin:navigation"}
+
+admin_registration_report:
+  path:  /report/registration
+  defaults: { _controller: "MapesCMSBundle:MyReport:registration"}
+  
+#admin_redirect_upload:
+#  path:  /mapes/cms/redirect/upload
+#  defaults: { _controller: "MapesCMSBundle:RedirectAdmin:upload"}

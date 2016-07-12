@@ -1,0 +1,44 @@
+Mapes\CMSBundle\Entity\Navigation:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\NavigationRepository
+  table: navigation
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    location:
+      type: string
+      length: 50
+      nullable: true
+    element_type:
+      type: string
+      length: 50
+      nullable: true
+    parent_id:
+      type: integer
+      nullable: true
+    anchor_text:
+      type: string
+      length: 255
+      nullable: true
+    url:
+      type: string
+      length: 255
+      nullable: true
+    page_id:
+      type: integer
+      nullable: true
+    order_num:
+      type: integer
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+  manyToOne:
+    page:
+      targetEntity: Page
+      inversedBy: navigations
+      joinColumn:
+        name: page_id
+        referencedColumnName: id

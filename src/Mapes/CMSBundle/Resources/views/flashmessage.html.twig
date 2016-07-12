@@ -1,0 +1,12 @@
+{% for flashMessage in app.session.flashbag.get('notice') %}
+	<div class="alert-box radius success">
+		{{ flashMessage }}
+	</div>
+{% endfor %}		
+
+
+{% for flashMessage in app.session.flashbag.get('error') %}
+	<div class="alert-box radius alert">
+		{{ flashMessage }}
+	</div>
+{% endfor %}	

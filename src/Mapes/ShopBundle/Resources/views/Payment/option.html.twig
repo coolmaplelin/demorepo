@@ -1,0 +1,17 @@
+{% extends 'MapesUserBundle::layout.html.twig' %}
+
+
+{% block content %}
+    
+        <h1>Payment Option</h1>
+        <div class="small-12">
+			<p>We accept credit card payment via eWay.</p>
+			<a href="{{path('shop_pay_eway') }}" class="credit_card_logo"> </a>
+			
+			<br/><br/>
+			<input type="button" value="Back" class="button" onClick="window.location='{{path('user_subscribe') }}'"/>
+			
+			
+		</div>
+ 
+{% endblock %}

@@ -1,0 +1,50 @@
+
+    <div class="main-slider-outter">
+
+        <div class="main-slider">
+                <div class="slider" >
+                    {% if images|length > 0 %}
+
+                        {% for image in images %}
+                            <div class="slide" style="background-image:url('{{ image.filepath }}')">
+								{% if image.heading|length > 0 or image.description|length > 0 %}
+									<div class="inner">
+											<div class="slide-title">{{ image.heading }}</div>
+											<div class="slide-caption">
+												<p>{{ image.description }}</p>
+											</div>
+									</div>
+								{% endif %}
+								
+                            </div>
+                        {% endfor %}
+                        
+                    {% else %}
+                        
+                        <div class="slide" style="background-image:url('/bundles/mapescms/images/new_bg.jpg')">
+                        </div>
+                        
+                    {% endif %}
+                </div>
+                
+                {% if images|length > 1 %}
+                    <div class="slide-left"></div>
+                    <div class="slide-right"></div>
+                {% endif %}
+        </div>
+
+        {% if images|length > 1 %}
+
+            <div class="dotnav">
+                {% for image in images %}
+                        <div class='indicator'></div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+
+    </div>
+
+
+

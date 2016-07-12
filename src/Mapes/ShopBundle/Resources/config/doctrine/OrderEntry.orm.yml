@@ -1,0 +1,42 @@
+Mapes\ShopBundle\Entity\OrderEntry:
+  type: entity
+  repositoryClass: Mapes\ShopBundle\Repository\OrderEntryRepository
+  table: order_entry
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    member_id:
+      type: integer
+      nullable: true
+    status:
+      type: string
+      length: 50
+      nullable: true
+    items:
+      type: integer
+      nullable: true
+    subtotal:
+      type: float
+      nullable: true
+    created_at:
+      type: datetime
+      nullable: true
+    updated_at:
+      type: datetime
+      nullable: true
+  manyToOne:
+    member:
+      targetEntity: Mapes\UserBundle\Entity\Member
+      inversedBy: orders
+      joinColumn:
+        name: member_id
+        referencedColumnName: id
+  oneToMany:
+    orderitems:
+      targetEntity: OrderItem
+      mappedBy: order
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAtValue]
+    preUpdate: [ setUpdatedAtValue ]

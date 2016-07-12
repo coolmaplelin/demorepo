@@ -1,0 +1,66 @@
+{% extends 'MapesUserBundle::layout.html.twig' %}
+
+
+{% block content %}
+    
+        <h1>Credit Card Details</h1>
+        <div class="small-7">
+			
+			<form id="eway_payment_form" action="{{formActionUrl}}" style="margin-top: 20px;" method="post" >
+				<input type="hidden" name="EWAY_ACCESSCODE" value="{{accessCode}}" />
+				<input type="hidden" name="EWAY_PAYMENTTYPE" value="Credit Card" />
+				
+				<div class="fieldset form-group">
+					<label>Card Name *</label>
+					
+					<div class='field-input'>
+                                            <input type="text" name="EWAY_CARDNAME" required/>
+					</div>
+				</div>
+			
+				<div class="fieldset form-group">
+					<label>Card Number *</label>
+					
+					<div class='field-input'>
+						<input type="text" name="EWAY_CARDNUMBER" required/>
+					</div>
+				</div>
+				
+				<div class="fieldset form-group">
+					<label>Expiry Date *</label>
+					
+					<div class='field-input'>
+						<select name="EWAY_CARDEXPIRYMONTH" style="width:100px" required>
+							{% for i in 1..12 %}
+								{% set month = i %}
+								{% if i <10 %}
+								{% 		set month = '0' ~ i %}
+								{% endif %}
+								<option value="{{month}}">{{month}}</option>
+							{% endfor %}
+						</select>
+						<select name="EWAY_CARDEXPIRYYEAR" style="width:150px" required>
+							{% set year = "now"|date("Y") %}
+							{% for i in 0..10 %}
+								<option value="{{year}}">{{year}}</option>
+								{% set year = year + 1 %}
+							{% endfor %}
+						</select 
+					</div>
+				</div>
+				
+				<div class="fieldset form-group">
+					<label>CVN *</label>
+					
+					<div class='field-input'>
+						<input type="text" name="EWAY_CARDCVN" required/>
+					</div>
+				</div>
+
+				<input type="submit" value="Process" class="button"/>
+				
+			</form>
+			
+		</div>
+ 
+{% endblock %}

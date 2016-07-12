@@ -1,0 +1,52 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script src="{{ asset('bundles/mapescms/js/custom_form.js') }}"></script>
+        
+{% endblock %}
+    
+    
+{% block form %}
+
+    {{ parent() }}
+
+    <div id="form-field-editor" class="hideme" title="Form Element">
+        <div>
+
+            <table>
+
+            <tr><td><b>Label</b></td><td>&nbsp;&nbsp;</td>
+            <td><input type="text" id="form-field-editor-title" /> </td></tr>
+            <tr>
+            <td><b>Type</b></td><td>&nbsp;&nbsp;</td>
+            <td><select id="form-field-editor-type" style="width:300px;">
+                    <option value='text'>Text</option>
+                    <option value='textbox'>Text box</option>
+                    <option value='select'>Select box</option>
+                    <option value='radio'>Radio buttons</option>
+                    <option value='checkbox'>Checkbox</option>
+                    <option value='image'>Image file</option>
+            </select> </td>
+            </tr>
+
+            <tr><td><b>Options</b><br />New line per option</td><td>&nbsp;&nbsp;</td>
+            <td><textarea id="form-field-editor-options" ></textarea> </td></tr>
+
+            <tr><td><b>Mandatory</b></td><td>&nbsp;&nbsp;</td>
+            <td><input type="checkbox" id="form-field-editor-manda" /> </td></tr>
+
+            <tr><td><b>Help text</b></td><td>&nbsp;&nbsp;</td>
+            <td><input type="text" id="form-field-editor-help" /> </td></tr>
+
+            </table>
+
+            <input type="hidden" id="form-field-editor-id" value="" />
+
+
+            </div>
+    </div>
+{% endblock %}
+
+

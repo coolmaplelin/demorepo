@@ -1,0 +1,30 @@
+Mapes\CustomFormBundle\Entity\CustomFormEntry:
+  type: entity
+  repositoryClass: Mapes\CustomFormBundle\Repository\CustomFormEntryRepository
+  table: custom_form_entry
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    custom_form_id:
+      type: integer
+      nullable: true
+    form_fields:
+      type: text
+      nullable: true
+    is_actioned:
+      type: boolean
+      nullable: true
+    created_at:
+      type: datetime
+      nullable: true
+  manyToOne:
+    custom_form:
+      targetEntity: CustomForm
+      inversedBy: entries
+      joinColumn:
+        name: custom_form_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAtValue ]

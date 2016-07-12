@@ -1,0 +1,15 @@
+parameters:
+#    mapes_custom_form.example.class: Mapes\CustomFormBundle\Example
+
+services:
+    mapes_custom_form.admin.custom_form:
+        class: Mapes\CustomFormBundle\Admin\CustomFormAdmin
+        arguments: [~, Mapes\CustomFormBundle\Entity\CustomForm, MapesCustomFormBundle:CustomFormAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Interaction, label: Forms}
+
+    mapes_custom_form.admin.custom_form_entry:
+        class: Mapes\CustomFormBundle\Admin\CustomFormEntryAdmin
+        arguments: [~, Mapes\CustomFormBundle\Entity\CustomFormEntry, MapesCustomFormBundle:CustomFormEntryAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Interaction, label: Form Entry}

@@ -1,0 +1,399 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - Navigation"|trans }}
+{% endblock%}
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li class="active">Site Navigation</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    {% block notice %}
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+    {% endblock notice %}
+
+    <div class="sonata-ba-form myadmin">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Currently Editing: </strong>
+                    <select id="menuSelector" style="margin-bottom:10px;">
+                        <option value='TOP' {% if location == 'TOP' %} selected {% endif %}>Top Menu</option>
+                        <option value='FOOTER' {% if location == 'FOOTER' %} selected {% endif %}>Footer Links</option>
+                        <option value='404d' {% if location == '404d' %} selected {% endif %}>404 Page</option>
+                    </select>                                
+
+                    <div class="nav-scrollable">
+                            <ul id="top-nav-container"></ul>
+
+                            <div class="nav-add-another"><a href="#" class="add-icon" title="New Navigation Element" onClick="resetNavEditor(); openNavEditor(); return false">ADD ANOTHER </a></div>
+                            <div class="clearAll"></div>
+                    </div>
+                    <p><input type="button" class="btn btn-success" value="Save all" onclick="saveNavigation(); return false;" /></p>
+
+                </div>
+           </div>
+    </div>
+
+    <script type="text/javascript">
+           var totalNav = 0;
+           var locationType = '{{location}}';
+
+            $(function() {
+                $("#top-nav-container").sortable();
+                $(".top-nav-inner").sortable();
+                
+                {% for parentNavElement in parentNavElements %}
+                      
+                      addAnother("#top-nav-container", "{{parentNavElement.AnchorText}}", "{{parentNavElement.PageId}}", "{{parentNavElement.Url}}", "{{parentNavElement.IsLive}}", "{{parentNavElement.Id}}");
+                      
+                      {% for childNavElement in childNavElements[parentNavElement.id] %}                    
+                            addAnotherSub("#top-nav-"+totalNav, "{{childNavElement.AnchorText}}", "{{childNavElement.PageId}}", "{{childNavElement.Url}}", "{{childNavElement.IsLive}}");
+                      {% endfor %}   
+
+                {% endfor %}        
+                    
+                $("#menuSelector").change(function(){
+                    var locationType = $(this).val();
+                    window.location.href = "{{ path('admin_config_navigation')}}?location=" + locationType;
+                });
+            });
+            
+            function addAnother(id, anchor, page_id, url, visible, origID)
+            {
+                totalNav++;
+                var newLine = '<li class="top-nav-item top-nav-show-' + visible + '" id="top-nav-' + totalNav + '"><div class="controls"><a href="#" class="edit-icon" title="Edit Navigation Element" onClick="prepareNavEditor(\'#top-nav-' + totalNav + '\'); openNavEditor(); return false"></a> <a href="#" class="newSublinkElement add-icon" title="New Subnavigation Element" onClick="resetSubNavigation(\'#top-nav-' + totalNav + '\'); openSubNavEditor(); return false"></a> <a href="#" class="delete-icon" onClick="deleteNav(\'#top-nav-' + totalNav + '\'); return false"></a></div><div class="heading" origPageID="' + page_id + '" origURL="' + url + '" origVis="' + visible + '" origID="' + origID + '">' + anchor + '</div><ul class="top-nav-inner"></ul></li>';
+                $(id).append(newLine);
+                $(".top-nav-inner").sortable();
+            }
+
+            function addAnotherSub(parent, anchor, page_id, url, visible)
+            {
+                var subNavTotal = $(parent + " .sub-nav-item").size();
+                subNavTotal++;
+                var parentIDArray = parent.split("#");
+                var parentID = parentIDArray[1];
+                var fullID = parentID + '-sub-nav-' + subNavTotal;
+
+                var newLine = '<li class="sub-nav-item sub-nav-show-' + visible + '" id="' + fullID + '"><a href="#" class="edit-icon" title="Edit Subnavigation Element" onClick="prepareSubnavEditor(\'#' + fullID + '\'); openSubNavEditor(); return false"></a> <a href="#" class="delete-icon" onClick="deleteNav(\'#' + fullID + '\'); return false"></a> <span class="subheading" origPageID="' + page_id + '"  origURL="' + url + '" origVis="' + visible + '">' + anchor + '</span></li>';
+
+                $(parent + " ul").append(newLine);
+            }
+
+            function deleteNav(id)
+            {
+                if(confirm("Are you sure you want to remove this navigation element?"))
+                {
+                   $(id).remove();
+                }
+            }
+
+            function resetNavEditor()
+            {
+                $("#naveditor-anchor").val("");
+                $("#naveditor-page-id").val(0);
+                $("#naveditor-url").val("");
+                $("#naveditor-live").val(1);
+                $("#naveditor-origID").val(0);
+                $("#naveditor-id").val("");
+
+                preparePageSelector("naveditor-page-id");
+            }
+
+            function resetSubNavigation(parent)
+            {
+                $("#subnaveditor-anchor").val("");
+                $("#subnaveditor-page-id").val(0);
+                $("#subnaveditor-url").val("");
+                $("#subnaveditor-live").val(1);
+                
+                $("#subnaveditor-id").val("");
+                $("#subnaveditor-parent-id").val(parent);
+
+                preparePageSelector("subnaveditor-page-id");
+
+            }
+
+            function prepareNavEditor(id)
+            {
+                var anchor = $(id + " .heading").html();
+                var page_id = $(id + " .heading").attr("origPageID");
+                var url = $(id + " .heading").attr("origURL");
+                var visible = $(id + " .heading").attr("origVis");
+                var origID = $(id + " .heading").attr("origID");
+
+                $("#naveditor-anchor").val(anchor);
+                $("#naveditor-page-id").val(page_id);
+                $("#naveditor-url").val(url);
+                $("#naveditor-live").val(visible);
+                $("#naveditor-id").val(id);
+                $("#naveditor-origID").val(origID);
+
+                preparePageSelector("naveditor-page-id");
+            }
+
+            function prepareSubnavEditor(id)
+            {
+                var anchor = $(id + " .subheading").html();
+                var page_id = $(id + " .subheading").attr("origPageID");
+                var url = $(id + " .subheading").attr("origURL");
+                var visible = $(id + " .subheading").attr("origVis");
+
+                $("#subnaveditor-anchor").val(anchor);
+                $("#subnaveditor-page-id").val(page_id);
+                $("#subnaveditor-url").val(url);
+                $("#subnaveditor-live").val(visible);
+                $("#subnaveditor-id").val(id);
+                $("#subnaveditor-parent-id").val("");
+                preparePageSelector("subnaveditor-page-id");
+
+            }
+            
+            function updateNaveditor(id, anchor, page_id, url, visible, origID)
+            {
+                $(id + " .heading").html(anchor);
+                $(id + " .heading").attr("origPageID", page_id);
+                $(id + " .heading").attr("origURL", url);
+                $(id + " .heading").attr("origVis", visible);
+                $(id + " .heading").attr("origID", origID);
+                $(id).removeClass("top-nav-show-0");
+                $(id).removeClass("top-nav-show-1");
+                $(id).addClass("top-nav-show-" + visible);
+            }
+
+            function updateSubnaveditor(parent, id, anchor, page_id, url, visible)
+            {
+                $(id + " .subheading").html(anchor);
+                $(id + " .subheading").attr("origPageID", page_id);
+                $(id + " .subheading").attr("origURL", url);
+                $(id + " .subheading").attr("origVis", visible);
+                $(id).removeClass("sub-nav-show-0");
+                $(id).removeClass("sub-nav-show-1");
+                $(id).addClass("sub-nav-show-" + visible);
+            }
+
+            function openNavEditor()
+            {
+                  navEditorDialog = $( "#naveditor" ).dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "blind",
+                        duration: 500
+                    },
+                    hide: {
+                        effect: "blind",
+                        duration: 500
+                    },                        
+                    height: 300,
+                    width: 600,
+                    modal: true,
+                    buttons: {
+                        "Save": navEditorSaveClick,
+                        Cancel: function() {
+                            navEditorDialog.dialog( "close" );
+                        }
+                    },
+                    open: function() {
+
+                    },
+                    close: function() {
+                    }
+                });
+                  
+                navEditorDialog.dialog( "open" );
+            }
+            
+            function navEditorSaveClick()
+            {
+                if($('#naveditor-id').val() != ""){
+                    updateNaveditor($('#naveditor-id').val(), $('#naveditor-anchor').val(), $('#naveditor-page-id').val(), $('#naveditor-url').val(), $('#naveditor-live').val(), $('#naveditor-origID').val());
+                }else{
+                    addAnother('#top-nav-container', $('#naveditor-anchor').val(), $('#naveditor-page-id').val(), $('#naveditor-url').val(), $('#naveditor-live').val(), $('#naveditor-origID').val()); 
+                }
+                navEditorDialog.dialog( "close" );
+            }
+
+            function openSubNavEditor()
+            {
+                  subNavEditorDialog = $( "#subnaveditor" ).dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "blind",
+                        duration: 500
+                    },
+                    hide: {
+                        effect: "blind",
+                        duration: 500
+                    },                        
+                    height: 300,
+                    width: 600,
+                    modal: true,
+                    buttons: {
+                        "Save": subNavEditorSaveClick,
+                        Cancel: function() {
+                            subNavEditorDialog.dialog( "close" );
+                        }
+                    },
+                    open: function() {
+
+                    },
+                    close: function() {
+                    }
+                 });                  
+                 
+                 subNavEditorDialog.dialog( "open" );
+            }
+
+            function subNavEditorSaveClick()
+            {
+                if($('#subnaveditor-id').val() != ""){
+                    updateSubnaveditor($('#subnaveditor-parent-id').val(), $('#subnaveditor-id').val(), $('#subnaveditor-anchor').val(), $('#subnaveditor-page-id').val(), $('#subnaveditor-url').val(), $('#subnaveditor-live').val()); 
+                }else{
+                    addAnotherSub($('#subnaveditor-parent-id').val(), $('#subnaveditor-anchor').val(), $('#subnaveditor-page-id').val(), $('#subnaveditor-url').val(), $('#subnaveditor-live').val()); 
+                }
+                subNavEditorDialog.dialog( "close" );
+            }
+            
+            function saveNavigation()
+            {
+                var totalTop = $("#top-nav-container .top-nav-item").size();
+                var rtnString = {};
+
+                rtnString["totalTop"] = totalTop;
+                rtnString["locationType"] = locationType;
+
+                var url = "{{path('ajax_save_navigation')}}";
+                var counter = 0;
+                $("#top-nav-container .top-nav-item").each(function(){
+
+                    var thisID = "#" + $(this).attr("id") + " .sub-nav-item";
+                    rtnString["totalTop-" + counter + "-count"] = $(thisID).size();
+                    rtnString["totalTop-" + counter + "-anchor"] = $( "#" + $(this).attr("id") + " .heading").html();
+                    rtnString["totalTop-" + counter + "-page-id"] = $( "#" + $(this).attr("id") + " .heading").attr("origPageID");
+                    rtnString["totalTop-" + counter + "-url"] = $( "#" + $(this).attr("id") + " .heading").attr("origURL");
+                    rtnString["totalTop-" + counter + "-visible"] = $( "#" + $(this).attr("id") + " .heading").attr("origVis");
+                    rtnString["totalTop-" + counter + "-origID"] = $( "#" + $(this).attr("id") + " .heading").attr("origID");
+
+                    var subcounter = 0;
+                    $(thisID).each(function(){
+                        var thisSubID = "#" + $(this).attr("id");
+                        rtnString["totalTop-" + counter + "-" + subcounter + "-anchor"] = $(thisSubID + " .subheading").html();
+                        rtnString["totalTop-" + counter + "-" + subcounter + "-page-id"] = $(thisSubID + " .subheading").attr("origPageID");
+                        rtnString["totalTop-" + counter + "-" + subcounter + "-url"] = $(thisSubID + " .subheading").attr("origURL");
+                        rtnString["totalTop-" + counter + "-" + subcounter + "-visible"] = $(thisSubID + " .subheading").attr("origVis");
+                        subcounter++;
+                    });
+                    
+                    counter++;
+                });
+
+                $.post(url, rtnString,  function(data){
+
+                      alert("Your new navigation has been saved.");
+
+                });
+
+            }
+            
+            function preparePageSelector(id)
+            {
+		$("#" + id ).hide();
+
+		var holderID = id + "-holder";
+                $("#" + holderID).remove();
+                $("div.positionHelper").remove();
+
+		var origID = $("#" + id ).val();
+
+		var dontAllow = -1;
+		$("#" + id ).parent().append("<div id='" + holderID + "' style='cursor: pointer'><span class='menuSelection'><i>Loading</i></span></div>");
+
+                $("#" + holderID).menu({
+
+                        content: $('#parentMenus').html(),
+                        flyOut: true,
+                        finalCapture: "#" + holderID,
+                        finalCaptureOrig: "#" + id,
+                        dontAllow: dontAllow
+
+                });
+
+                var counter = 0;
+                $("a[origID='" + origID + "']").each(function()
+                {
+                        $("#" + holderID + " .menuSelection").text($(this).attr("origText"));
+                        counter++;
+                });
+
+                if(counter == 0)
+                        $("#" + holderID + " .menuSelection").text("[Click here to select]");
+            }            
+            
+      </script>
+
+
+      <div id="naveditor" class="hideme" title="Navigation Element">
+
+          <div>
+                <input type="hidden" val="0" id="naveditor-origID" />
+                <table>
+                    <tr>
+                      <td><b>Anchor Text</b></td>
+                      <td colspan="2"><input type="text" id="naveditor-anchor" /> </td>
+                    </tr>
+                    <tr >
+                      <td><b>Page</b></td>
+                      <td class="pageSelector"><input type="text" id="naveditor-page-id" /></td>
+                      <td>Or &nbsp;&nbsp; <b>URL</b> <input type="text" id="naveditor-url" /></td>
+                    </tr>
+                    <tr>
+                      <td><b>Live</b></td>
+                      <td  colspan="2"><select id="naveditor-live">
+                          <option value='1'>Yes - Visible</option>
+                          <option value='0'>No - hidden</option>
+                        </select> </td>
+                    </tr>
+                </table>
+                <input type="hidden" id="naveditor-id" value="" />
+                <br /><br />
+
+          </div>
+
+     </div>
+
+    <div id="subnaveditor"  class="hideme" title="Subnavigation Element">
+        <div>
+            <table>
+                <tr>
+                  <td><b>Anchor Text</b></td>
+                  <td colspan="2"><input type="text" id="subnaveditor-anchor" /> </td>
+                </tr>
+                <tr>
+                  <td><b>Page</b></td>
+                  <td class="pageSelector"><input type="text" id="subnaveditor-page-id" /> </td>
+                  <td>Or &nbsp;&nbsp; <b>URL</b> <input type="text" id="subnaveditor-url" /></td>
+                </tr>
+                <tr>
+                  <td><b>Live</b></td>
+                  <td colspan="2"><select id="subnaveditor-live">
+                      <option value='1'>Yes - Visible</option>
+                      <option value='0'>No - hidden</option>
+                    </select> </td>
+                </tr>
+            </table>
+
+            <input type="hidden" id="subnaveditor-id" value="" />
+            <input type="hidden" id="subnaveditor-parent-id" value="" />
+            <br /><br />
+
+        </div>
+    </div>
+      
+    <div id="parentMenus" style="display:none">
+        {% include 'MapesCMSBundle:Cache:parentpageselector.html.twig'  %}
+    </div>
+                            
+{% endblock sonata_admin_content %}

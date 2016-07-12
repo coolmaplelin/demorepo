@@ -1,0 +1,42 @@
+user_login:
+    path:   /user/login
+    defaults:  { _controller: MapesUserBundle:Default:login }
+    
+user_login_check:
+    path:   /user/login_check
+    
+user_logout:
+    path:   /user/logout    
+    
+user_loggedin:
+    path:   /user/loggedin
+    defaults:  { _controller: MapesUserBundle:Default:loggedin }
+  
+user_register:
+    path:   /user/register
+    defaults:  { _controller: MapesUserBundle:Default:register }
+
+user_register_thankyou:
+    path:   /user/register/thankyou
+    defaults:  { _controller: MapesUserBundle:Default:register_thankyou }
+    
+user_forgot:
+    path:   /user/forgot
+    defaults:  { _controller: MapesUserBundle:Default:forgot }
+
+user_subscribe:
+    path:   /user/subscribe
+    defaults:  { _controller: MapesUserBundle:Default:subscribe }
+
+user_subscribe_confirm:
+    path:   /user/subscribe_confirm
+    defaults:  { _controller: MapesUserBundle:Default:subscribe_confirm }
+    
+user_dashboard:
+    path:   /user/secured/dashboard
+    defaults:  { _controller: MapesUserBundle:Default:dashboard }
+    
+user_account:
+    path:   /user/secured/account
+    defaults:  { _controller: MapesUserBundle:Default:account }    
+   

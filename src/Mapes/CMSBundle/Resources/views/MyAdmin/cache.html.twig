@@ -1,0 +1,48 @@
+{% extends '::admin.html.twig' %}
+    
+{% block title %}
+    {{ " - Cache Setting"|trans }}
+{% endblock%}
+
+
+{% set _breadcrumb   = '<li><a href="' ~ url('sonata_admin_dashboard') ~ '">Dashboard</a></li><li class="active">Cache Setting</li>' %}
+{% block breadcrumb %}
+    {{ _breadcrumb|raw }}
+{% endblock%} 
+
+{% block sonata_admin_content %}
+
+    {% block notice %}
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+    {% endblock notice %}
+
+    <div class="sonata-ba-form myadmin">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                Clear the Symfony cache(advanced users)
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    The Symfony cache As Symfony is a development framework, it utilises a powerful cache to improve performance. However sometimes the cache needs to be cleared to test new development changes or fix
+                                    Useful tip
+                                    If you experience a 500 error or unexpected 404 error on the site, clear the Symfony cache and try again before requesting development help. 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="well well-small form-actions">
+						<a href="{{path('admin_system_cache')}}?SymfonyCC=true" class="btn btn-danger"><i class="fa fa-minus-circle"></i> Clear the cache</a>
+					</div>
+					
+                </div>
+           </div>
+    </div>
+
+{% endblock sonata_admin_content %}

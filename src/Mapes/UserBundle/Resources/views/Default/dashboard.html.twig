@@ -1,0 +1,13 @@
+{% extends 'MapesCMSBundle::layout.html.twig' %}
+
+    
+{% block content %}
+
+    <h1>Dashboard</h1>
+
+    <p>Welcome, {{ app.user.firstname }}</p>
+    
+    
+    <a href="{{path('user_account')}}" class="button small">Account</a>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+parameters:
+#    mapes_cms.example.class: Mapes\CMSBundle\Example
+
+services:
+#    mapes_cms.example:
+#        class: %mapes_cms.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+     mapes_cms.admin.page:
+        class: Mapes\CMSBundle\Admin\PageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: Pages }
+        arguments: [null, Mapes\CMSBundle\Entity\Page, MapesCMSBundle:PageAdmin]
+
+     mapes_cms.admin.redirect:
+        class: Mapes\CMSBundle\Admin\RedirectAdmin
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: SEO, label: Redirects}
+        arguments: [~, Mapes\CMSBundle\Entity\Redirect, MapesCMSBundle:RedirectAdmin]
+     mapes.nameindex_listener1:
+        class: Mapes\CMSBundle\EventListener\NameIndex
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+     mapes.nameindex_listener2:
+        class: Mapes\CMSBundle\EventListener\NameIndex
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }            
+     mapes.nameindex_listener3:
+        class: Mapes\CMSBundle\EventListener\NameIndex
+        tags:
+            - { name: doctrine.event_listener, event: postRemove }      
+#     mapes.nameindex_listener4:
+#        class: Mapes\CMSBundle\EventListener\NameIndex
+#        tags:
+#            - { name: doctrine.event_listener, event: postLoad }      
+            
+     #File uploader            
+     mapes.fileupload_listener:
+        class: Mapes\CMSBundle\EventListener\FileUploadListener
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }   
+        arguments: [ %sf_web_dir%, %oneup_uploader.galleries.path%, "@doctrine.orm.default_entity_manager" ]
+        
+     mapes.filepreupload_listener:
+        class: Mapes\CMSBundle\EventListener\FilePreUploadListener
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.pre_upload, method: onPreUpload }   
+            
+     mapes.fileupload_validation_listener:
+        class: Mapes\CMSBundle\EventListener\FileUploadValidationListener
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.validation, method: onValidate }   
+            
+     mapes.fileupload_error_handler:
+        class: Mapes\CMSBundle\ErrorHandler\FileUploadErrorHandler
+
+     #cache		
+     mapes.cache.clear:
+        class: Symfony\Bundle\FrameworkBundle\Command\CacheClearCommand
+        calls:
+           - [setContainer, ["@service_container"] ]
+
+     #Mailer
+     mail_helper:
+        class:  Mapes\CMSBundle\Utils\mailUtils
+        arguments: ["@mailer","@doctrine.orm.default_entity_manager","@templating"]
+

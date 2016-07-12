@@ -1,0 +1,17 @@
+Mapes\CMSBundle\Entity\Redirect:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\RedirectRepository
+  table: redirect
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    original_url:
+      type: string
+      length: 255
+      nullable: true
+    destination_url:
+      type: string
+      length: 255
+      nullable: true

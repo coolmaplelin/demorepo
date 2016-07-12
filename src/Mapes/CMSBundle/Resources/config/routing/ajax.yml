@@ -1,0 +1,21 @@
+ajax_get_uploadedfile_list:
+    path:  /get_uploadedfile_list
+    defaults: { _controller: "MapesCMSBundle:Ajax:get_uploadedfile_list" }
+ajax_get_uploadedfile:
+    path:  /get_uploadedfile
+    defaults: { _controller: "MapesCMSBundle:Ajax:get_uploadedfile" }
+ajax_update_uploadedfile:
+    path:  /update_uploadedfile
+    defaults: { _controller: "MapesCMSBundle:Ajax:update_uploadedfile" }
+ajax_delete_uploadedfile:
+    path:  /delete_uploadedfile
+    defaults: { _controller: "MapesCMSBundle:Ajax:delete_uploadedfile" }
+ajax_reorder_pageimage:
+    path:  /reorder_pageimage
+    defaults: { _controller: "MapesCMSBundle:Ajax:reorder_pageimage" }
+ajax_save_navigation:
+    path:  /save_navigation
+    defaults: { _controller: "MapesCMSBundle:Ajax:save_navigation" }    
+ajax_save_contact_entry:
+    path:  /save_contact_entry
+    defaults: { _controller: "MapesCMSBundle:Ajax:save_contact_entry" }    

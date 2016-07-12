@@ -1,0 +1,24 @@
+Mapes\UserBundle\Entity\Member:
+    constraints:
+       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: [email]
+            message: 'This email address already exists.'
+    properties:
+       first_name:
+           - NotBlank: ~
+       last_name:
+           - NotBlank: ~
+       email:
+           - NotBlank: ~
+           - Email : ~
+       plain_password:
+           - NotBlank: 
+               groups: [Registration]
+           - Length:
+               min: 6
+               minMessage : "Password must be at least {{ limit }} characters long."
+       photo_file:
+           - Image:
+               mimeTypes: ['image/jpeg','image/pjpeg','image/gif','image/jpg','image/png']
+               maxHeight: 170
+               groups: [Account]

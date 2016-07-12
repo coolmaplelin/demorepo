@@ -1,0 +1,49 @@
+Mapes\ShopBundle\Entity\PaymentLog:
+  type: entity
+  repositoryClass: Mapes\ShopBundle\Repository\PaymentLogRepository
+  table: payment_log
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    created_at:
+      type: datetime
+      nullable: false
+    order_id:
+      type: integer
+      nullable: false
+    amount:
+      type: float
+      nullable: true
+    eway_auth_code:
+      type: string
+      length: 255
+      nullable: true
+    is_successful:
+      type: boolean
+      nullable: true
+    response_text:
+      type: text
+      nullable: true
+    trxnReference:
+      type: string
+      length: 255
+      nullable: true
+    payment_type:
+      type: string
+      length: 255
+      nullable: true
+    gateway:
+      type: string
+      length: 20
+      nullable: true
+  manyToOne:
+    order:
+      targetEntity: OrderEntry
+      inversedBy: paymentLogs
+      joinColumn:
+        name: order_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAtValue]

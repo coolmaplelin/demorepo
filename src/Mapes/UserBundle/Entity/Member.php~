@@ -1,0 +1,468 @@
+<?php
+
+namespace Redp\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+/**
+ * Member
+ */
+class Member implements UserInterface, \Serializable
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $first_name;
+
+    /**
+     * @var string
+     */
+    private $last_name;
+
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var boolean
+     */
+    private $is_activated;
+
+    /**
+     * @var \DateTime
+     */
+    private $created_at;
+
+    /**
+     * @var string
+     */
+    private $account_type;
+
+    /**
+     * @var string
+     */
+    private $password_hash;
+
+    /**
+     * @var string
+     */
+    private $contact_phone;
+
+    /**
+     * @var string
+     */
+    private $contact_address;
+
+    /**
+     * @var boolean
+     */
+    private $is_blogger;
+
+    /**
+     * @var string
+     */
+    private $phone;
+
+    /**
+     * @var string
+     */
+    private $photo;
+
+    /**
+     * @var string
+     */
+    private $email_hash;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set first_name
+     *
+     * @param string $firstName
+     * @return Member
+     */
+    public function setFirstName($firstName)
+    {
+        $this->first_name = $firstName;
+    
+        return $this;
+    }
+
+    /**
+     * Get first_name
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * Set last_name
+     *
+     * @param string $lastName
+     * @return Member
+     */
+    public function setLastName($lastName)
+    {
+        $this->last_name = $lastName;
+    
+        return $this;
+    }
+
+    /**
+     * Get last_name
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Member
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Member
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set is_activated
+     *
+     * @param boolean $isActivated
+     * @return Member
+     */
+    public function setIsActivated($isActivated)
+    {
+        $this->is_activated = $isActivated;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_activated
+     *
+     * @return boolean 
+     */
+    public function getIsActivated()
+    {
+        return $this->is_activated;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Member
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set account_type
+     *
+     * @param string $accountType
+     * @return Member
+     */
+    public function setAccountType($accountType)
+    {
+        $this->account_type = $accountType;
+    
+        return $this;
+    }
+
+    /**
+     * Get account_type
+     *
+     * @return string 
+     */
+    public function getAccountType()
+    {
+        return $this->account_type;
+    }
+
+    /**
+     * Set contact_phone
+     *
+     * @param string $contactPhone
+     * @return Member
+     */
+    public function setContactPhone($contactPhone)
+    {
+        $this->contact_phone = $contactPhone;
+    
+        return $this;
+    }
+
+    /**
+     * Get contact_phone
+     *
+     * @return string 
+     */
+    public function getContactPhone()
+    {
+        return $this->contact_phone;
+    }
+
+    /**
+     * Set contact_address
+     *
+     * @param string $contactAddress
+     * @return Member
+     */
+    public function setContactAddress($contactAddress)
+    {
+        $this->contact_address = $contactAddress;
+    
+        return $this;
+    }
+
+    /**
+     * Get contact_address
+     *
+     * @return string 
+     */
+    public function getContactAddress()
+    {
+        return $this->contact_address;
+    }
+
+    /**
+     * Set is_blogger
+     *
+     * @param boolean $isBlogger
+     * @return Member
+     */
+    public function setIsBlogger($isBlogger)
+    {
+        $this->is_blogger = $isBlogger;
+    
+        return $this;
+    }
+
+    /**
+     * Get is_blogger
+     *
+     * @return boolean 
+     */
+    public function getIsBlogger()
+    {
+        return $this->is_blogger;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Member
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return Member
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set email_hash
+     *
+     * @param string $emailHash
+     * @return Member
+     */
+    public function setEmailHash($emailHash)
+    {
+        $this->email_hash = $emailHash;
+    
+        return $this;
+    }
+
+    /**
+     * Get email_hash
+     *
+     * @return string 
+     */
+    public function getEmailHash()
+    {
+        return $this->email_hash;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function preUploadPhoto()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function uploadPhoto()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUploadPhoto()
+    {
+        // Add your code here
+    }
+    
+    public function getRoles() {
+        $role_array = array();
+        $role_array[] = $this->account_type;
+        return $role_array;
+    }
+    
+    public function getSalt() {
+        
+        return "";
+        
+    }
+    
+    public function eraseCredentials() {
+        
+    }
+    
+    
+    public function getUsername() {
+        return $this->email;
+    }
+    
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+        ) = unserialize($serialized);
+    }    
+}

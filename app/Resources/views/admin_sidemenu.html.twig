@@ -1,0 +1,58 @@
+    {# Customized Side Menu #}
+	
+    {% set _current_route = app.request.get('_route') %}
+	
+	{% set myRouteArray = ['admin_config_navigation'] %}
+    <li class='treeview{% if _current_route in myRouteArray %} active{% endif %}'>
+            <a href="#">
+                <i class="fa fa-cogs"></i>
+                <span>Global Element</span>
+                <i class="fa pull-right fa-angle-left"></i>
+            </a>
+            
+            <ul class="treeview-menu{% if _current_route in myRouteArray %} active{% endif %}">
+                {% set this_route = 'admin_config_navigation' %}
+                {% set active = (_current_route == this_route) %}
+                <li{% if active %} class="active"{% endif %}><a href="{{ path(this_route) }}"><i class="fa fa-angle-double-right"></i>Navigation</a></li>
+            </ul>
+    </li>   
+
+	{% set myRouteArray = ['admin_registration_report'] %}
+    <li class='treeview{% if _current_route in myRouteArray %} active{% endif %}'>
+            <a href="#">
+                <i class="fa fa-sitemap"></i>
+                <span>Reports</span>
+                <i class="fa pull-right fa-angle-left"></i>
+            </a>
+            
+            <ul class="treeview-menu{% if _current_route in myRouteArray %} active{% endif %}">
+                {% set this_route = 'admin_registration_report' %}
+                {% set active = (_current_route == this_route) %}
+                <li{% if active %} class="active"{% endif %}><a href="{{ path(this_route) }}"><i class="fa fa-angle-double-right"></i>Registration</a></li>
+            </ul>
+    </li>   
+    
+    {% set myRouteArray = ['admin_system_preference', 'admin_system_cache'] %}
+    {% set redirect_admin_route_partial = 'admin_mapes_cms_redirect' %}
+    <li class='treeview{% if _current_route in myRouteArray or redirect_admin_route_partial in _current_route %} active{% endif %}'>
+            <a href="#">
+                <i class="fa fa-puzzle-piece"></i>
+                <span>Set up</span>
+                <i class="fa pull-right fa-angle-left"></i>
+            </a>
+            
+            <ul class="treeview-menu{% if _current_route in myRouteArray %} active{% endif %}">
+                {% set this_route = 'admin_system_preference' %}
+                {% set active = (_current_route == this_route) %}
+                <li{% if active %} class="active"{% endif %}><a href="{{ path(this_route) }}"><i class="fa fa-angle-double-right"></i>System Preferences</a></li>
+                
+				
+				{% set active = (redirect_admin_route_partial in _current_route) %}
+                <li{% if active %} class="active"{% endif %}><a href="{{ path('admin_mapes_cms_redirect_list') }}"><i class="fa fa-angle-double-right"></i>Page Redirects</a></li>
+				
+                
+				
+            </ul>
+    </li>       
+    
+    

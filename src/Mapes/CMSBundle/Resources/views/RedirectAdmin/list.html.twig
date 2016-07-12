@@ -1,0 +1,17 @@
+{% extends 'SonataAdminBundle:CRUD:list.html.twig' %}
+
+{% block actions %}
+{% spaceless %}
+    {% if admin.hasRoute('create') and admin.isGranted('CREATE')%}
+        <li>{% include 'SonataAdminBundle:Core:create_button.html.twig' %}</li>
+    {% endif %}
+    {% if admin.hasRoute('upload') and admin.isGranted('UPLOAD')%}
+        <li>{% include 'MapesCMSBundle:RedirectAdmin:upload_button.html.twig' %}</li>
+    {% endif %}
+{% endspaceless %}
+{% endblock %}
+
+
+
+
+

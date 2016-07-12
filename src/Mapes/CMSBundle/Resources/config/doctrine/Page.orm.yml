@@ -1,0 +1,76 @@
+Mapes\CMSBundle\Entity\Page:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\PageRepository
+  table: page
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    slug:
+      type: string
+      length: 255
+      nullable: true
+    meta_title:
+      type: string
+      length: 255
+      nullable: true
+    meta_description:
+      type: text
+      nullable: true
+    page_heading:
+      type: string
+      length: 255
+      nullable: true
+    page_content:
+      type: text
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+    parent_id:
+      type: integer
+      nullable: true
+    allow_comments:
+      type: boolean
+      nullable: true
+    category_id:
+      type: integer
+      nullable: true
+    published_date:
+      type: datetime
+      nullable: true
+    promo_image:
+      type: string
+      length: 255
+      nullable: true
+    promo_heading:
+      type: string
+      length: 255
+      nullable: true
+    promo_description:
+      type: text
+      nullable: true
+  oneToMany:
+    children:
+      targetEntity: Page
+      mappedBy: parent  
+    images:
+      targetEntity: PageImage
+      mappedBy: page
+  manyToOne:
+    category:
+      targetEntity: Category
+      inversedBy: pages
+      joinColumn:
+        name: category_id
+        referencedColumnName: id
+    parent:
+      targetEntity: Page
+      inversedBy: children   
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue ]
+    preUpdate: [ setSlugValue ]

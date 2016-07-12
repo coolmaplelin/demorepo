@@ -1,0 +1,34 @@
+Mapes\ShopBundle\Entity\OrderItem:
+  type: entity
+  repositoryClass: Mapes\ShopBundle\Repository\OrderItemRepository
+  table: order_item
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    order_id:
+      type: integer
+      nullable: false
+    product_id:
+      type: integer
+      nullable: false
+    price:
+      type: float
+      nullable: true
+    quantity:
+      type: integer
+      nullable: true
+  manyToOne:
+    order:
+      targetEntity: OrderEntry
+      inversedBy: orderitems
+      joinColumn:
+        name: order_id
+        referencedColumnName: id
+    product:
+      targetEntity: Product
+      inversedBy: orderitems
+      joinColumn:
+        name: product_id
+        referencedColumnName: id

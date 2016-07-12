@@ -1,0 +1,24 @@
+Mapes\CMSBundle\Entity\SiteSetting:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\SiteSettingRepository
+  table: site_setting
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 255
+      nullable: true
+    value:
+      type: string
+      length: 255
+      nullable: true
+    description:
+      type: text
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ ]
+    preUpdate: [ ]
+    postUpdate: [ ]

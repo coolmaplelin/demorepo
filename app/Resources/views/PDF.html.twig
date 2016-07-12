@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>PDF</title>
+        <link rel="canonical" href="{% if app.session.get('canonical') %}{{ app.session.get('canonical') }}{{ app.session.set('canonical','') }}{% else %}{{ app.request.uri }}{% endif %}" />
+                
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('bundles/mapescms/foundation/css/foundation.css') }}" />
+            <link rel="stylesheet" href="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('bundles/mapescms/css/front.css') }}" />
+        {% endblock %}
+
+    </head>
+	<body>
+
+		<section class="mainstreet">
+			<div class="row">
+				<div class="small-12 large-12 columns">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

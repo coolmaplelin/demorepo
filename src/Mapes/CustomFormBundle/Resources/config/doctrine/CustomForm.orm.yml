@@ -1,0 +1,50 @@
+Mapes\CustomFormBundle\Entity\CustomForm:
+  type: entity
+  repositoryClass: Mapes\CustomFormBundle\Repository\CustomFormRepository
+  table: custom_form
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    title:
+      type: string
+      length: 255
+      nullable: true
+    slug:
+      type: string
+      length: 255
+      nullable: true
+    emails:
+      type: text
+      nullable: true
+    form_fields:
+      type: text
+      nullable: true
+    instructions:
+      type: text
+      nullable: true
+    thankyou_title:
+      type: string
+      length: 255
+      nullable: true
+    thankyou_content:
+      type: text
+      nullable: true
+    meta_title:
+      type: string
+      length: 255
+      nullable: true
+    meta_description:
+      type: text
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+  oneToMany:
+    entries:
+      targetEntity: CustomFormEntry
+      mappedBy: custom_form
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue ]
+    preUpdate: [ setSlugValue ]

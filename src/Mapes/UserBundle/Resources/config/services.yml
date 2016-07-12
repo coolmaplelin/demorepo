@@ -1,0 +1,23 @@
+parameters:
+#    mapes_user.example.class: Mapes\UserBundle\Example
+
+services:
+#    mapes_user.example:
+#        class: %mapes_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+     mapes_cms.admin.member:
+        class: Mapes\UserBundle\Admin\MemberAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Administration, label: Members }
+        arguments: [null, Mapes\UserBundle\Entity\Member, MapesUserBundle:MemberAdmin]
+     mapes_cms.admin.newsletter:
+        class: Mapes\UserBundle\Admin\NewsletterAdmin
+        arguments: [~, Mapes\UserBundle\Entity\Newsletter, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Administration, label: Newsletter}
+     sonata.member.block.recent_members:
+        class: Mapes\UserBundle\Block\RecentMembersBlockService
+        tags:
+            - { name: sonata.block }
+        #arguments: ["sonata.member.block.recent_members", "@templating", "@service_container"]
+        arguments: ["sonata.member.block.recent_members", "@templating","@doctrine.orm.default_entity_manager"]

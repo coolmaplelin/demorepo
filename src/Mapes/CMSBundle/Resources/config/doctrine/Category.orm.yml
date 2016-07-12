@@ -1,0 +1,41 @@
+Mapes\CMSBundle\Entity\Category:
+  type: entity
+  repositoryClass: Mapes\CMSBundle\Repository\CategoryRepository
+  table: category
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    slug:
+      type: string
+      length: 255
+      nullable: true
+    title:
+      type: string
+      length: 255
+      nullable: true
+    description:
+      type: text
+      nullable: true
+    meta_title:
+      type: string
+      length: 255
+      nullable: true
+    meta_description:
+      type: text
+      nullable: true
+    is_live:
+      type: boolean
+      nullable: true
+    promo_image:
+      type: string
+      length: 255
+      nullable: true
+  oneToMany:
+    pages:
+      targetEntity: Page
+      mappedBy: category
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue]
+    preUpdate: [ setSlugValue ]

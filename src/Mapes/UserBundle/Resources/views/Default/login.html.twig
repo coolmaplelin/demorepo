@@ -1,0 +1,36 @@
+{% extends 'MapesUserBundle::layout.html.twig' %}
+
+        
+{% block content %}
+        {#{dump(app.security.token)}#}
+
+		<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<h1>Login</h1>
+							{% if error %}
+								<p class="error">{{ error.message|trans({},'messages') }}</p>
+							{% endif %}
+								
+							<form id="loginform" action="{{ path('user_login_check') }}" method="post">
+								<div class="form-group">
+										<input type="text" class="form-control" placeholder="Email" value="{{ last_username }}" name="_username" class="form-control" required/>
+								</div>
+								<div class="form-group">
+										<input type="password" class="form-control" placeholder="Password" value="" name="_password" class="form-control" required/>
+								</div>
+								<button type="submit" class="btn btn-l">Login</button>
+								<!-- <a class="right" href="{{ path('user_forgot') }}">Forgot Password</a> -->
+							</form>
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+					
+					
+				</div>
+		</section>
+ 
+{% endblock %}
+        
+		

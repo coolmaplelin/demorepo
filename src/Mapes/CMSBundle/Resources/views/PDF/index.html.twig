@@ -1,0 +1,18 @@
+{% extends '::PDF.html.twig' %}
+
+{% block content %}
+
+	<h1>HELLO</h1>
+
+	<table>
+		<tr><th>Column1</th><th>Column2</th><th>Column3</th><th>Column4</th><th>Column5</th></tr>
+	
+		<tr><td>Data 1</td><td>Data 2</td><td>Data 3</td><td>Data 4</td><td>Data 5</td></tr>
+	</table>
+	
+	<img src="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/profilepic-placeholder-2.jpg') }}" />
+
+{% endblock %}
+        
+    
+ 

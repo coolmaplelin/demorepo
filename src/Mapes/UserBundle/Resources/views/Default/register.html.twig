@@ -1,0 +1,95 @@
+{% extends 'MapesCMSBundle::layout.html.twig' %}
+
+{# form_theme form _self #}
+{% form_theme form  'MapesUserBundle::form_fields.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript">
+		//Put you script here
+    </script>
+        
+{% endblock %}
+    
+
+{% block content %}
+
+
+    
+	<div class="small-7">
+	
+		<h1>Register</h1>
+		
+		<form id="register-form" action="{{ path('user_register') }}" style="margin-top: 20px;" method="post" {{ form_enctype(form) }}>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.first_name) }} *</label>
+					
+					{{ form_errors(form.first_name) }}
+					<div class='field-input'>
+						{{ form_widget(form.first_name) }}
+					</div>
+			</div>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.last_name) }} *</label>
+					
+					{{ form_errors(form.last_name) }}
+					<div class='field-input'>
+						{{ form_widget(form.last_name) }}
+					</div>
+			</div>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.username) }}</label>
+					
+					{{ form_errors(form.username) }}
+					<div class='field-input'>
+						{{ form_widget(form.username) }}
+					</div>
+			</div>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.email) }} *</label>
+					
+					{{ form_errors(form.email) }}
+					<div class='field-input'>
+						{{ form_widget(form.email) }}
+					</div>
+			</div>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.plain_password.first) }} *</label>
+					
+					{{ form_errors(form.plain_password.first) }}
+					<div class='field-input'>
+						{{ form_widget(form.plain_password.first) }}
+					</div>
+			</div>
+			
+			<div class="fieldset form-group">
+					<label>{{ form_label(form.plain_password.second) }} *</label>
+					
+					{{ form_errors(form.plain_password.second) }}
+					<div class='field-input'>
+						{{ form_widget(form.plain_password.second) }}
+					</div>
+			</div>
+			<input type="submit" value="Submit" class="button"/>
+			
+                        {{ form_rest(form) }}
+		</form>
+	
+	</div>
+	
+	
+
+{% endblock %}
+        
+
+        
+
+        
+        
+ 

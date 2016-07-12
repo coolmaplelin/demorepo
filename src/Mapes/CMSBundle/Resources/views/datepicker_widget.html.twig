@@ -1,0 +1,14 @@
+<div id="my_datepicker_{{ name }}" class="input-group date my-datepicker" 
+	{% if data_linked is defined %}
+		data-linked="my_datepicker_{{ data_linked }}"
+	{% endif %}
+	{% if data_linked_rule is defined %}
+		data-linked-rule="{{ data_linked_rule }}"
+	{% endif %}
+	
+	>
+	<input class="form-control" type="text" name="{{ name }}" value="{{ value }}" ></input>
+	<span class="input-group-addon">
+		<span class="glyphicon-calendar glyphicon"></span>
+	</span>
+</div>
